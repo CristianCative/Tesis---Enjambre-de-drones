@@ -196,38 +196,48 @@ Luego abre en tu navegador: **http://localhost:5000**
 ---
 
 ## 📊 Resultados
+### Visualizaciones 2D Q-Learning
+- **Visualización Círculo**  
+  ![Círculo Q-Learning](simulador_obstaculos_final_github/RESULTADOS/Entorno_2D/Q_LEARNING/visualizacion_ql_circulo_20260315_122634.png)
+- **Visualización Línea**  
+  ![Línea Q-Learning](simulador_obstaculos_final_github/RESULTADOS/Entorno_2D/Q_LEARNING/visualizacion_ql_linea_20260315_122634.png)
+- **Visualización V**  
+  ![V Q-Learning](simulador_obstaculos_final_github/RESULTADOS/Entorno_2D/Q_LEARNING/visualizacion_ql_v_20260315_122634.png)
 
-### Visualización 3D
+### Visualizaciones 2D MAPPO
+- **Visualización Círculo**  
+  ![Círculo MAPPO](simulador_obstaculos_final_github/RESULTADOS/Entorno_2D/MAPPO/visualizacion_mappo_circulo_20260315_154006.png)
+- **Visualización Línea**  
+  ![Línea MAPPO](simulador_obstaculos_final_github/RESULTADOS/Entorno_2D/MAPPO/visualizacion_mappo_linea_20260315_154006.png)
+- **Visualización V**  
+  ![V MAPPO](simulador_obstaculos_final_github/RESULTADOS/Entorno_2D/MAPPO/visualizacion_mappo_v_20260315_154006.png)
 
-Las trayectorias del enjambre en el espacio 3D pueden visualizarse ejecutando:
+### Visualizaciones 3D Interactivas Q-Learning
+- **Visualización Círculo**  
+  [Ver aquí](simulador_obstaculos_final_github/RESULTADOS/Entorno_3D/Q_LEARNING/visualizacion_ql3d_circulo_20260315_205543.html)
+- **Visualización Línea**  
+  [Ver aquí](simulador_obstaculos_final_github/RESULTADOS/Entorno_3D/Q_LEARNING/visualizacion_ql3d_linea_20260315_205543.html)
+- **Visualización V**  
+  [Ver aquí](simulador_obstaculos_final_github/RESULTADOS/Entorno_3D/Q_LEARNING/visualizacion_ql3d_v_20260315_205543.html)
 
-```bash
-python ql3d/visualizar_trayectorias_3d.py
-# o
-python mappo3d/visualizar_trayectorias_3d.py
-```
+### Visualizaciones 3D Interactivas MAPPO
+- **Visualización Círculo**  
+  [Ver aquí](simulador_obstaculos_final_github/RESULTADOS/Entorno_3D/MAPPO/visualizacion_mappo3d_circulo_20260316_002018.html)
+- **Visualización Línea**  
+  [Ver aquí](simulador_obstaculos_final_github/RESULTADOS/Entorno_3D/MAPPO/visualizacion_mappo3d_linea_20260316_002018.html)
+- **Visualización V**  
+  [Ver aquí](simulador_obstaculos_final_github/RESULTADOS/Entorno_3D/MAPPO/visualizacion_mappo3d_v_20260316_002018.html)
 
-**Características:**
-- 🎨 Colores distintos para cada dron
-- 📍 Posiciones finales marcadas
-- 🎯 Destino/formación objetivo visible
-- 🔄 Rotación interactiva con mouse
 
-### Visualización 2D
+### Análisis por Formación
+- **Q-Learning:**  
+  El algoritmo Q-Learning mostró limitaciones significativas en formaciones circulares donde los obstáculos estaban densamente distribuidos. Sin embargo, en las demas formaciones, su rendimiento varió según las condiciones iniciales.
 
-Para ver las trayectorias en 2D:
+- **MAPPO:**  
+  El rendimiento fue consistentemente superior en diferentes formaciones, particularmente en escenarios con múltiples agentes que requieren navegación colaborativa.
 
-```bash
-python ql/visualizar_trayectorias_2d.py
-# o
-python mappo/visualizar_trayectorias_2d.py
-```
-
-**Características:**
-- 📍 Trazado de caminos completos
-- 🎯 Formación final alcanzada
-- 📐 Análisis de errores de posición
-- 🔢 Estadísticas de convergencia
+### Conclusiones Generales
+Ambos algoritmos demostraron efectividad en la navegación del entorno 2D, siendo MAPPO superior a Q-Learning en escenarios más complejos. Las visualizaciones proporcionadas ilustran las diferencias clave en su enfoque y resultados.
 
 ---
 
