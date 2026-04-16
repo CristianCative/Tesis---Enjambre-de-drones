@@ -1,66 +1,293 @@
-# Drone Swarm Project 🚁🌐
 
-[![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)](https://example.com)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+# 🚁 Simulación de Enjambre de Drones
+## Q-Learning vs MAPPO para Coordinación Multi-Agente
 
-## 📚 Table of Contents
-- [Installation](#installation)
-- [Dependencies](#dependencies)
-- [Results](#results)
-- [Algorithm Comparison](#algorithm-comparison)
-- [Troubleshooting](#troubleshooting)
-- [Citations](#citations)
+<div align="center">
 
-## 🚀 Installation
-Follow these steps to install the project locally using Visual Studio Code:
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/CristianCative/Tesis---Enjambre-de-drones.git
-   ```
-2. Open Visual Studio Code and navigate to the cloned directory.
-3. Install the necessary extensions for better experience (e.g., Python, Jupyter).
-4. Set up a virtual environment:
-   ```bash
-   python -m venv venv
-   source venv/bin/activate  # On Windows use 'venv\Scripts\activate'
-   ```
-5. Install dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
+![Python](https://img.shields.io/badge/Python-3.10%2B-blue?logo=python&logoColor=white)
+![PyTorch](https://img.shields.io/badge/PyTorch-Latest-red?logo=pytorch&logoColor=white)
+![License](https://img.shields.io/badge/License-Academic%20Use-green)
+![Status](https://img.shields.io/badge/Status-Active-brightgreen)
 
-## 📦 Dependencies
-| Dependency         | Version       |
-|--------------------|---------------|
-| Python             | 3.8+          |
-| NumPy              | 1.21.0        |
-| Matplotlib         | 3.4.3         |
-| SciPy              | 1.7.0         |
-| Pandas             | 1.3.3         |
+**Trabajo de Grado** | Simulación de un enjambre de 9 drones para la coordinación y formación mediante algoritmos multi-agente
 
-## 📊 Results
-### 2D Visualization
-![2D Visualization](https://example.com/2d_visualization.png)
-
-### 3D Visualization
-![3D Visualization](https://example.com/3d_visualization.png)
-
-## ⚖️ Algorithm Comparison
-| Algorithm         | Performance (ms) |
-|--------------------|------------------|
-| Algorithm A        | 120              |
-| Algorithm B        | 95               |
-| Algorithm C        | 110              |
-
-## 🐞 Troubleshooting
-- **Issue**: Installation fails.
-  - **Solution**: Ensure you have the correct version of Python installed. Check your virtual environment.
-- **Issue**: Visualization not displaying.
-  - **Solution**: Make sure to call plt.show() in your code.
-
-## 🔗 Citations
-- Author A. (2021). Title of Related Work. [Link](https://doi.org/example)
-- Author B. (2022). Title of Another Related Work. [Link](https://doi.org/example)
+</div>
 
 ---
-For assistance, please open an issue in this repository!
+
+## 📋 Descripción General
+
+Este repositorio contiene la implementación completa de **dos algoritmos de aprendizaje por refuerzo multi-agente** aplicados al control cooperativo de un enjambre de **9 drones** en entornos 2D y 3D:
+
+- **🎓 Q-Learning Tabular**: Política compartida con estado discretizado
+- **🧠 MAPPO** (Multi-Agent Proximal Policy Optimization): Red actor-crítico centralizada
+
+### Características Principales
+
+✅ **12 experimentos independientes** (2 algoritmos × 3 formaciones × 2 dimensiones)  
+✅ **Formaciones entrenadas**: Línea, V y Círculo  
+✅ **Tracking completo** con MLflow para reproducibilidad  
+✅ **Visualización 2D y 3D** de trayectorias  
+✅ **Logs detallados** de entrenamiento y rendimiento  
+
+---
+
+## 📁 Estructura del Repositorio
+
+```
+simulador_obstaculos_final/
+│
+├── 📜 ejecutar_todo.py              # Orquestador principal
+│
+├── 📂 ql/                           # Q-Learning 2D
+│   ├── config.py
+│   ├── entorno_enjambre_2d.py
+│   ├── agente_qlearning_2d.py
+│   ├── entrenar_enjambre.py
+│   └── evidencias/
+│
+├── 📂 ql3d/                         # Q-Learning 3D
+│   ├── config3d.py
+│   ├── entorno_enjambre_3d.py
+│   ├── agente_qlearning_3d.py
+│   ├── entrenar_enjambre_3d.py
+│   └── evidencias/
+│
+├── 📂 mappo/                        # MAPPO 2D
+│   ├── config_mappo.py
+│   ├── entorno_enjambre_mappo.py
+│   ├── agente_mappo.py
+│   ├── entrenar_mappo.py
+│   └── evidencias/
+│
+├── 📂 mappo3d/                      # MAPPO 3D
+│   ├── config_mappo3d.py
+│   ├── entorno_enjambre_mappo3d.py
+|   ├── agente_mappo3d.py
+│   ├── entrenar_mappo_3d.py
+│   └── evidencias/
+│
+├── 📂 mlruns/                       # Experimentos MLflow
+└── 📂 logs/                         # Logs de entrenamiento
+```
+
+---
+
+## 🔧 Instalación Detallada
+
+### Requisitos Previos
+
+- **Sistema Operativo**: Windows, macOS o Linux
+- **Python**: 3.10 o superior
+- **Intérprete Recomendado**: Visual Studio Code
+
+### Paso 1: Clonar el Repositorio
+
+```bash
+git clone https://github.com/CristianCative/Tesis---Enjambre-de-drones.git
+cd Tesis---Enjambre-de-drones
+```
+
+### Paso 2: Configurar Visual Studio Code
+
+1. **Instalar la extensión Python**
+   - Abre VS Code
+   - Ir a: `Extensions` (Ctrl+Shift+X)
+   - Buscar e instalar: **Python** (Microsoft)
+
+2. **Seleccionar intérprete Python**
+   - Abre la paleta de comandos: `Ctrl+Shift+P`
+   - Escribe: `Python: Select Interpreter`
+   - Elige tu versión de Python 3.10+
+
+### Paso 3: Crear Entorno Virtual
+
+**En VS Code - Terminal integrada (Ctrl+`)**
+
+#### Windows:
+```bash
+python -m venv venv
+venv\Scripts\activate
+```
+
+#### macOS/Linux:
+```bash
+python3 -m venv venv
+source venv/bin/activate
+```
+
+### Paso 4: Instalar Dependencias
+
+```bash
+# Actualizar pip
+pip install --upgrade pip
+
+# Instalar dependencias principales
+pip install numpy==1.26.0
+pip install torch==2.1.0
+pip install matplotlib==3.8.0
+pip install mlflow==2.8.0
+
+```
+
+### Dependencias Detalladas
+
+| Paquete | Versión | Propósito |
+|---------|---------|----------|
+| **numpy** | 1.26.0+ | Cálculos numéricos y operaciones matriciales |
+| **torch** | 2.1.0+ | Framework de deep learning (MAPPO) |
+| **matplotlib** | 3.8.0+ | Visualización de trayectorias 2D/3D |
+| **mlflow** | 2.8.0+ | Tracking de experimentos y métricas |
+
+---
+
+## 🚀 Uso
+
+### Ejecutar Todos los Experimentos
+
+Para entrenar todos los 12 modelos (Q-Learning 2D/3D + MAPPO 2D/3D en 3 formaciones):
+
+```bash
+python ejecutar_todo.py
+```
+
+⏱️ **Tiempo estimado**: 2-4 horas (dependiendo del hardware)
+
+### Ejecutar Experimentos Individuales
+
+#### Q-Learning 2D
+```bash
+cd ql
+python entrenar_enjambre.py
+```
+
+#### Q-Learning 3D
+```bash
+cd ql3d
+python entrenar_enjambre_3d.py
+```
+
+#### MAPPO 2D
+```bash
+cd mappo
+python entrenar_mappo.py
+```
+
+#### MAPPO 3D
+```bash
+cd mappo3d
+python entrenar_mappo_3d.py
+```
+
+### Visualizar Resultados en MLflow
+
+```bash
+mlflow ui --backend-store-uri ./mlruns --port 5000
+```
+
+Luego abre en tu navegador: **http://localhost:5000**
+
+**En MLflow puedes:**
+- 📊 Comparar métricas entre algoritmos
+- 📈 Ver gráficos de convergencia
+- 💾 Descargar parámetros y modelos entrenados
+- 📝 Revisar hiperparámetros usados
+
+---
+
+## 📊 Resultados
+
+### Visualización 3D
+
+Las trayectorias del enjambre en el espacio 3D pueden visualizarse ejecutando:
+
+```bash
+python ql3d/visualizar_trayectorias_3d.py
+# o
+python mappo3d/visualizar_trayectorias_3d.py
+```
+
+**Características:**
+- 🎨 Colores distintos para cada dron
+- 📍 Posiciones finales marcadas
+- 🎯 Destino/formación objetivo visible
+- 🔄 Rotación interactiva con mouse
+
+### Visualización 2D
+
+Para ver las trayectorias en 2D:
+
+```bash
+python ql/visualizar_trayectorias_2d.py
+# o
+python mappo/visualizar_trayectorias_2d.py
+```
+
+**Características:**
+- 📍 Trazado de caminos completos
+- 🎯 Formación final alcanzada
+- 📐 Análisis de errores de posición
+- 🔢 Estadísticas de convergencia
+
+---
+
+## 🎓 Información del Trabajo
+
+**Autor**: Cristian Cative  
+**Institución**: Grupo de Investigación GED — Robótica y Sistemas Autónomos  
+**Año**: 2026  
+**Tema**: Coordinación y formación de enjambres mediante aprendizaje por refuerzo multi-agente
+
+### Algoritmos Comparados
+
+#### Q-Learning Tabular
+- Enfoque discreto y determinista
+- Tabla Q compartida entre agentes
+- Bajo costo computacional
+- Escalabilidad limitada
+
+#### MAPPO
+- Enfoque continuo basado en política
+- Red actor-crítico centralizada
+- Mayor capacidad de generalización
+- Mayor costo computacional
+
+---
+
+## 📝 Licencia y Uso Académico
+
+> ⚠️ **Aviso Importante de Citación**
+>
+> Este repositorio es de **libre acceso** con fines **académicos, educativos y de investigación**.
+>
+> Si utilizas este código, total o parcialmente, en un trabajo propio —incluso con modificaciones— **debes citarlo de la siguiente forma**:
+>
+> ```bibtex
+> @mastersthesis{Cative2026,
+>   author    = {Cristian Cative},
+>   title     = {Simulación de un enjambre de drones para la coordinación y formación mediante algoritmos multi-agente},
+>   school    = {Grupo de Investigación GED, Colombia},
+>   year      = {2026}
+> }
+> ```
+>
+> **Cativa, C. (2026).** *Simulación de un enjambre de drones para la coordinación y formación mediante algoritmos multi-agente* [Trabajo de Grado]. Grupo de Investigación GED, Colombia.
+>
+> ❌ **El uso comercial sin autorización expresa del autor no está permitido.**
+
+---
+
+## 🙏 Agradecimientos
+
+- Grupo de Investigación GED — Robótica y Sistemas Autónomos
+- Comunidad de Python y Deep Learning
+
+---
+
+<div align="center">
+
+**⭐ Si este proyecto te fue útil, considera darle una estrella ⭐**
+
+Hecho con ❤️ por Cristian Cative
+
+</div>
