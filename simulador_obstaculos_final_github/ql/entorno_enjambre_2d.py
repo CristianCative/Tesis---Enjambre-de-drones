@@ -227,17 +227,18 @@ class EntornoEnjambre2D:
         return obs
 
     def _recompensa(self, i, dist):
-        r = (self._prev_dist[i] - dist) * 10.0
+        r  = (self._prev_dist[i] - dist) * 10.0
         r -= dist * 0.5
         r += 20.0 if dist < CFG.dist_llegada else 0.0
         r += 5.0  if dist < 0.5 else 0.0
-        # Colisiones entre drones
+        r += CFG.r_tiempo
         for j in range(self.n):
             if j != i:
                 d_ij = float(np.linalg.norm(self.pos[i] - self.pos[j]))
                 if d_ij < CFG.dist_colision * 2:
                     r -= (CFG.dist_colision * 2 - d_ij) * 10.0
-        # Colisión con cualquiera de los 4 obstáculos
+    
         if _colision_obstaculos(self.pos[i], self.obstaculos):
             r += CFG.r_obstaculo
+    
         return r
