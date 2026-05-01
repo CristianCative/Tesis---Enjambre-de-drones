@@ -281,6 +281,7 @@ class EntornoEnjambre3D:
         r -= dist * 0.5
         r += 20.0 if dist < CFG.dist_llegada else 0.0
         r += 5.0  if dist < 0.5 else 0.0
+        r += CFG.r_tiempo
         for j in range(self.n):
             if j != i:
                 d_ij = float(np.linalg.norm(self.pos[i] - self.pos[j]))
@@ -288,4 +289,5 @@ class EntornoEnjambre3D:
                     r -= (CFG.dist_colision * 2 - d_ij) * 10.0
         if _colision_obstaculos(self.pos[i], self.obstaculos):
             r += CFG.r_obstaculo
+    
         return r
